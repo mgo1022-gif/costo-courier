@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costos Courier - Argentina</title>
+    <style>
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --focus-ring: 0 0 0 3px rgba(var(--color-teal-500-rgb), 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-gray-400-rgb: 119, 124, 124;
+                --color-teal-300-rgb: 50, 184, 198;
+                --color-gray-300-rgb: 167, 169, 169;
+                --color-gray-200-rgb: 245, 245, 245;
+                --color-background: var(--color-charcoal-700);
+                --color-surface: var(--color-charcoal-800);
+                --color-text: var(--color-gray-200);
+                --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+                --color-primary: var(--color-teal-300);
+                --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+                --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+                --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: var(--color-text-secondary);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: var(--color-surface);
+            color: var(--color-text);
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--focus-ring);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .input-group .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            background-color: var(--color-primary);
+            color: var(--color-cream-50);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .btn:active {
+            background-color: var(--color-primary-active);
+        }
+
+        .results {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid var(--color-primary);
+        }
+
+        .result-label {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+
+        .result-value {
+            color: var(--color-text);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .result-row:last-child .result-label,
+        .result-row:last-child .result-value {
+            color: var(--color-primary);
+            font-size: 18px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-box {
+            background-color: var(--color-secondary);
+            border-left: 3px solid var(--color-primary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Costos Courier Argentina</h1>
+        <p class="subtitle">Régimen de importación simplificada - Calcula el costo final de tu importación</p>
+
+        <div class="card">
+            <h2>Datos de la Mercadería</h2>
+            <div class="form-group">
+                <label for="valorFOB">Valor FOB (USD)</label>
+                <input type="number" id="valorFOB" step="0.01" min="0" placeholder="1000.00">
+                <span class="help-text">Valor de la mercadería en origen</span>
+            </div>
+
+            <div class="form-group">
+                <label for="fleteInternacional">Flete Internacional (USD)</label>
+                <input type="number" id="fleteInternacional" step="0.01" min="0" placeholder="150.00">
+                <span class="help-text">Costo del transporte internacional</span>
+            </div>
+
+            <div class="form-group">
+                <label for="unidades">Cantidad de Unidades</label>
+                <input type="number" id="unidades" min="1" value="1" placeholder="1">
+                <span class="help-text">Número de unidades importadas</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Parámetros Aduaneros</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="derechoImportacion">Derecho de Importación (%)</label>
+                    <input type="number" id="derechoImportacion" step="0.01" min="0" value="0" placeholder="0 - 35">
+                    <span class="help-text">Según posición arancelaria NCM</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tasaEstadistica">Tasa de Estadística (%)</label>
+                    <input type="number" id="tasaEstadistica" step="0.01" min="0" value="3" placeholder="3.00">
+                    <span class="help-text">Generalmente 3% s/valor CIF</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="iva">IVA (%)</label>
+                <input type="number" id="iva" step="0.01" min="0" value="21" placeholder="21.00">
+                <span class="help-text">21% para la mayoría de productos</span>
+            </div>
+
+            <div class="form-group">
+                <label for="gastosGestion">Gastos de Gestión del Courier (USD)</label>
+                <input type="number" id="gastosGestion" step="0.01" min="0" value="70" placeholder="70.00">
+                <span class="help-text">Honorarios del courier por gestión aduanera</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Nota:</strong> Los derechos de importación varían según la posición arancelaria NCM. Consultá el Arancel Integrado Aduanero (AIA) para tu producto específico.
+            </div>
+        </div>
+
+        <button class="btn" onclick="calcular()">Calcular Costos</button>
+
+        <div class="results" id="results">
+            <h2>Detalle de Costos</h2>
+            <div class="result-row">
+                <span class="result-label">Valor FOB</span>
+                <span class="result-value" id="resFOB">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Flete Internacional</span>
+                <span class="result-value" id="resFlete">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Valor CIF (FOB + Flete)</span>
+                <span class="result-value" id="resCIF">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Derecho de Importación</span>
+                <span class="result-value" id="resDerecho">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Tasa de Estadística</span>
+                <span class="result-value" id="resEstadistica">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Base Imponible IVA</span>
+                <span class="result-value" id="resBaseIVA">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">IVA</span>
+                <span class="result-value" id="resIVA">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Gastos de Gestión Courier</span>
+                <span class="result-value" id="resGestion">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">COSTO TOTAL EN DESTINO</span>
+                <span class="result-value" id="resTotal">-</span>
+            </div>
+            <div class="result-row" style="border-top: 1px solid var(--color-border); margin-top: 10px; padding-top: 15px; border-bottom: none;">
+                <span class="result-label">Cantidad de Unidades</span>
+                <span class="result-value" id="resUnidades">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">COSTO UNITARIO</span>
+                <span class="result-value" id="resUnitario">-</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            const valorFOB = parseFloat(document.getElementById('valorFOB').value) || 0;
+            const fleteInternacional = parseFloat(document.getElementById('fleteInternacional').value) || 0;
+            const unidades = parseInt(document.getElementById('unidades').value) || 1;
+            const derechoImportacion = parseFloat(document.getElementById('derechoImportacion').value) || 0;
+            const tasaEstadistica = parseFloat(document.getElementById('tasaEstadistica').value) || 3;
+            const iva = parseFloat(document.getElementById('iva').value) || 21;
+            const gastosGestion = parseFloat(document.getElementById('gastosGestion').value) || 70;
+
+            if (valorFOB <= 0) {
+                alert('Por favor, ingresá un valor FOB válido');
+                return;
+            }
+
+            const valorCIF = valorFOB + fleteInternacional;
+            
+            const montoDerechoImportacion = valorCIF * (derechoImportacion / 100);
+            
+            const montoTasaEstadistica = valorCIF * (tasaEstadistica / 100);
+            
+            const baseImponibleIVA = valorCIF + montoDerechoImportacion + montoTasaEstadistica;
+            
+            const montoIVA = baseImponibleIVA * (iva / 100);
+            
+            const costoTotal = valorCIF + montoDerechoImportacion + montoTasaEstadistica + montoIVA + gastosGestion;
+            
+            const costoUnitario = costoTotal / unidades;
+
+            document.getElementById('resFOB').textContent = formatCurrency(valorFOB);
+            document.getElementById('resFlete').textContent = formatCurrency(fleteInternacional);
+            document.getElementById('resCIF').textContent = formatCurrency(valorCIF);
+            document.getElementById('resDerecho').textContent = formatCurrency(montoDerechoImportacion) + ' (' + derechoImportacion + '%)';
+            document.getElementById('resEstadistica').textContent = formatCurrency(montoTasaEstadistica) + ' (' + tasaEstadistica + '%)';
+            document.getElementById('resBaseIVA').textContent = formatCurrency(baseImponibleIVA);
+            document.getElementById('resIVA').textContent = formatCurrency(montoIVA) + ' (' + iva + '%)';
+            document.getElementById('resGestion').textContent = formatCurrency(gastosGestion);
+            document.getElementById('resTotal').textContent = formatCurrency(costoTotal);
+            document.getElementById('resUnidades').textContent = unidades;
+            document.getElementById('resUnitario').textContent = formatCurrency(costoUnitario);
+
+            document.getElementById('results').classList.add('show');
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function formatCurrency(value) {
+            return 'USD $' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calcular();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
